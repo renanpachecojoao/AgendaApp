@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">teste</string>
+    <string name="tituloApp">Agenda</string>
+    <string name="labelCodigo">Codigo</string>
+    <string name="labelAssunto">Assunto</string>
+    <string name="labelData">Data</string>
+    <string name="labelDescricao">Descrição</string>
+    <string name="botaoInserir">Inserir </string>
+
+
+</resources>
