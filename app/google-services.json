@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "44506177946",
+    "project_id": "agendaanhanguera-197d3",
+    "storage_bucket": "agendaanhanguera-197d3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44506177946:android:550b7506f6bd2887131a23",
+        "android_client_info": {
+          "package_name": "com.example.teste"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDwkW3DcWpT5Q9_j5szec-FXvsTKiPDyo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,17 +1,17 @@
 package com.example.teste;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
+import com.google.firebase.firestore.FirebaseFirestore;//importar o link com o fire base
 import java.sql.Date;
 import java.util.*;
 import java.text.ParseException;
@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public EditText codigo;
     public EditText assunto;
     public EditText data;
@@ -105,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast msg = Toast.makeText(getApplicationContext(),"Cadastrado com sucesso!", Toast.LENGTH_SHORT);
                         msg.setGravity(Gravity.CENTER, 0, 50);
                         msg.show();
-                    }).addOnFailureListener(e->{Log.e("Firebase", "Erro", e);});
+                    }).addOnFailureListener(e->{
+                Log.e("Firebase", "Erro", e);});
         }
     }
 
