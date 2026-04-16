@@ -7,5 +7,9 @@
     <string name="labelDescricao">Descrição</string>
     <string name="botaoInserir">Inserir </string>
 
+    <string name="bemVindo">Bem-vindo(a)</string>
+    <string name="botaoCadastrar">Cadastrar</string>
+    <string name="botaoConsultar">Consultar</string>
+
 
 </resources>
