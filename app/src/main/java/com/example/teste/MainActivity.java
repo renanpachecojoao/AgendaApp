@@ -1,113 +1,39 @@
 package com.example.teste;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import com.google.firebase.firestore.FirebaseFirestore;//importar o link com o fire base
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public EditText codigo;
-    public EditText assunto;
-    public EditText data;
-    public  EditText descricao;
+    private Button btnCadastrar, btnConsultar;
 
-    public  int cod;
-    public String assunt;
-    public Date dat;
-    public String desc;
-
-    public Registro registro;
-
-    public Boolean resultadoVerificacao;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
+
+        //Chamando class superior
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_cadastrar);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-    }//fim do método
+        setContentView(R.layout.activity_main);//modificando a tela, reconheçendo os botões
 
-    //coletar dados do formulario
-    public void coletarDadosFormulario(View view){
-        this.codigo = findViewById(R.id.codigo);//coletando o dado da tela e passando para variável código
-        this.assunto = findViewById(R.id.date);//coletando o dado da tela e passando para variável código
-        this.data = findViewById(R.id.assunto);//coletando o dado da tela e passando para variável código
-        this.descricao = findViewById(R.id.descricao);//coletando o dado da tela e passando para variável código
+        this.btnCadastrar = findViewById(R.id.btnCadastrar);//Botão cadastrar - referência
+        this.btnConsultar = findViewById(R.id.btnConsultar);//Botão consultrar
 
-        this.resultadoVerificacao = this.verificarVazio(codigo, assunto, data, descricao);//verificando se os campos estão vazios
-        if(this.resultadoVerificacao == true){
-            this.preencherCampos();
-        }else{
-            this.cod    = Integer.parseInt(this.codigo.getText().toString());
-            this.assunt = this.assunto.getText().toString();
-            this.desc   = this.descricao.getText().toString();
-        }
-    }//fim do coletarDados
+        //Ativar os botões
 
-    public Boolean verificarVazio(EditText codigo, EditText assunto, EditText data, EditText descricao){
-        if(codigo.getText().toString().isEmpty() ||
-                assunto.getText().toString().isEmpty() ||
-        data.getText().toString().isEmpty() ||
-                descricao.getText().toString().isEmpty()){
-            return true;
-        } //fim do if
-        return false;
+        this.btnCadastrar.setOnClickListener(view->{
+            Intent intent = new Intent(MainActivity.this, CadastrarActivity.class);
+            startActivity(intent);
 
-    }//fim do método
+        });//fim do botão cadastrar
 
-    //Método que envia a mensagem de campo em branco
+        this.btnConsultar.setOnClickListener(view->{
+            Intent intent = new Intent(MainActivity.this, ConsultarActivity.class);
+            startActivity(intent);
 
-    public void preencherCampos(){
-        Toast.makeText(getApplicationContext(), "Preencha os Campos com Dados Válidos!", Toast.LENGTH_SHORT);
-    }//
+        });//fim do botão consulta
+    }//Fim do onCreate
 
-    public Boolean converterData(EditText dataCampo){
 
-        //Realizar a conversão de EDITTEXT - objeto para um dado tipo data
-        SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());//defino o padrão de data que eu quero visualizar
-        dataFormatada.setLenient(false);//Evitando datas invalidas, por exemplo: 31/02/2026
-        //Guarda o dado do Edittext em um campo String
-        String dataTexto = dataCampo.getText().toString();
-        try {
-            this.dat = (Date) dataFormatada.parse(dataTexto);
-            return true;//conversão funcionou
-        }catch (ParseException e){
-            Toast.makeText(this, "Data Invalida", Toast.LENGTH_SHORT).show();
-        }//fim do catch
-        return false;
-    }//fim do método
 
-    //esse método o que cadastra no banco de dados
-    public void cadastrar(View view){
-        this.coletarDadosFormulario(view);//chamando o método de coleta de dados
-        if(this.resultadoVerificacao != true && this.converterData(this.data) != false){
-            this.registro = new Registro(this.cod, this.assunt, this.dat, this.desc);//crio o Objeto registro
-
-            this.db.collection("/registro").add(this.registro).addOnSuccessListener(
-                    documentReference -> {
-                        Toast msg = Toast.makeText(getApplicationContext(),"Cadastrado com sucesso!", Toast.LENGTH_SHORT);
-                        msg.setGravity(Gravity.CENTER, 0, 50);
-                        msg.show();
-                    }).addOnFailureListener(e->{
-                Log.e("Firebase", "Erro", e);});
-        }
-    }
-
-}//fim da class
+}//Fim da Main
